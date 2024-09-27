@@ -13,7 +13,16 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim pkgs.vscode
+        [ pkgs.vim
+         (pkgs.vscode-with-extensions.override {
+             vscodeExtensions = with pkgs.vscode-extensions; [] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+             {
+               name = "RGBDS Z80";
+               publisher = "Donald Hays";
+               version = "4.1.0";
+             }
+            ];
+          })
         ];
 
       # Auto upgrade nix package and the daemon service.
