@@ -13,7 +13,7 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim
+        [ pkgs.vim pkgs.vscode
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -27,6 +27,7 @@
       programs.zsh.enable = true;  # default shell on catalina
       # programs.fish.enable = true;
       # programs.vim.enable = true;
+      # programs.vscode.enable = false;#das geht nicht
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -37,6 +38,7 @@
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
+      nixpkgs.config.allowUnfree = true;
 
       # allow TouchId
       security.pam.enableSudoTouchIdAuth = true;
@@ -45,7 +47,7 @@
       networking.knownNetworkServices = ["Wi-Fi" "Ethernet Adaptor" "Thunderbolt Ethernet"];
       networking.dns = ["192.168.178.201" "1.1.1.1" "8.8.8.8"];
 
-      # jankyborders
+      # applications
       services.jankyborders.enable = true;
       services.jankyborders.active_color = "0xff00ff00";#"gradient(top_right=0x9992B3F5,bottom_left=0x9992B3F5)";
       #services.jankyborders.background_color = "0x00000000";
