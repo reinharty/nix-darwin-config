@@ -14,17 +14,6 @@
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [ pkgs.vim
-         (pkgs.vscode-with-extensions.override {
-             vscodeExtensions = with pkgs.vscode-extensions; [] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-             {
-               name = "rgbds-z80";
-               publisher = "donaldhays";
-               version = "4.1.0";
-               sha256 = "sha256-efz2veCcbyq2mgra1bSe17/4d01tdkybhyvn2ec2j3s=";
-             }
-            ];
-          })
-          pkgs.vscode-extensions.ms-vscode.cpptools-extension-pack
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -38,7 +27,10 @@
       programs.zsh.enable = true;  # default shell on catalina
       # programs.fish.enable = true;
       # programs.vim.enable = true;
-      # programs.vscode.enable = false;#das geht nicht
+      programs.vscode = {
+	enable = true;
+	extensions = with pkgs.vscode-extensions; [
+		]
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
