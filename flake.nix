@@ -17,12 +17,14 @@
          (pkgs.vscode-with-extensions.override {
              vscodeExtensions = with pkgs.vscode-extensions; [] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
              {
-               name = "RGBDS Z80";
-               publisher = "Donald Hays";
+               name = "rgbds-z80";
+               publisher = "donaldhays";
                version = "4.1.0";
+               sha256 = "sha256-efz2veCcbyq2mgra1bSe17/4d01tdkybhyvn2ec2j3s=";
              }
             ];
           })
+          pkgs.vscode-extensions.ms-vscode.cpptools-extension-pack
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -82,11 +84,11 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations.Yorricks-MacBook-Pro = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."Yorricks-MacBook-Pro" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations.Yorricks-MacBook-Pro.pkgs;
+    darwinPackages = self.darwinConfigurations."Yorricks-MacBook-Pro".pkgs;
   };
 }
