@@ -13,7 +13,7 @@
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
-        [ pkgs.vim pkgs.vscode
+        [ pkgs.vim
         ];
 
       # Auto upgrade nix package and the daemon service.
@@ -27,7 +27,10 @@
       programs.zsh.enable = true;  # default shell on catalina
       # programs.fish.enable = true;
       # programs.vim.enable = true;
-      # programs.vscode.enable = false;#das geht nicht
+      programs.vscode = {
+	enable = true;
+	extensions = with pkgs.vscode-extensions; [
+		]
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -73,11 +76,11 @@
   {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations.Yorricks-MacBook-Pro = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."Yorricks-MacBook-Pro" = nix-darwin.lib.darwinSystem {
       modules = [ configuration ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations.Yorricks-MacBook-Pro.pkgs;
+    darwinPackages = self.darwinConfigurations."Yorricks-MacBook-Pro".pkgs;
   };
 }
